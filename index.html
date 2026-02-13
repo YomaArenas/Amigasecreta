@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amiga Secreta 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Caveat:wght@500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #F9F8F6;
+  --surface:   #FFFFFF;
+  --rose-tint: #F7EAEA;
+  --lila-tint: #EAE7F2;
+  --sage-tint: #E7F0EC;
+  --beige:     #F5F1EA;
+  --text-main: #2A2A2A;
+  --text-soft: #787878;
+  --text-xs:   #B0B0B0;
+  --border:    #EBEBEB;
+  --green-sb:  #1E3932;
+  --r-lg: 18px;
+  --r-md: 12px;
+  --sh: 0 2px 20px rgba(0,0,0,0.055), 0 1px 5px rgba(0,0,0,0.035);
+  --sh-lg: 0 12px 48px rgba(0,0,0,0.10), 0 3px 12px rgba(0,0,0,0.06);
+  --t: 0.25s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-main);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 80px;
+}
+
+/* ─── Scroll reveal ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.d1 { transition-delay: 0.05s; }
+.reveal.d2 { transition-delay: 0.15s; }
+.reveal.d3 { transition-delay: 0.25s; }
+.reveal.d4 { transition-delay: 0.35s; }
+
+/* ─── Page layout ────────────────────────────── */
+.page {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 52px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ─── Hero ───────────────────────────────────── */
+.hero {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 48px 44px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #F7EAEA 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #EAE7F2 0%, transparent 70%);
+  pointer-events: none;
+}
+.eyebrow {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-xs);
+  margin-bottom: 16px;
+}
+.hero-icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+.hero-headline {
+  font-family: 'Caveat', cursive;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.15;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.hero-rule {
+  width: 40px; height: 1px;
+  background: var(--border);
+  margin: 0 auto 22px;
+}
+
+.message {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.8;
+  max-width: 440px;
+  margin: 0 auto;
+  text-align: left;
+  position: relative; z-index: 1;
+}
+.message strong { font-weight: 500; color: var(--text-main); }
+.traits {
+  list-style: none;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.traits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+}
+.traits li::before {
+  content: '';
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--text-xs);
+  margin-top: 9px;
+  flex-shrink: 0;
+}
+
+/* ─── 2-col grid ─────────────────────────────── */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 520px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .hero { padding: 36px 24px 32px; }
+}
+
+/* ─── Card ───────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--sh);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card-tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-xs);
+}
+.card-ico { font-size: 1.7rem; line-height: 1; }
+.card-title {
+  font-size: 0.97rem;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+.card-text {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.7;
+  flex: 1;
+}
+
+/* ─── Playlist card ──────────────────────────── */
+.card-playlist { background: var(--lila-tint); border-color: #DAD5EA; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--text-main);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 4px;
+  transition: background var(--t), box-shadow var(--t), transform var(--t);
+}
+.btn:hover {
+  background: #3C3C3C;
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+.btn svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
+/* ─── Scratch card ───────────────────────────── */
+.card-scratch { background: var(--rose-tint); border-color: #E8D5D5; }
+
+.scratch-wrap {
+  position: relative;
+  width: 100%;
+  height: 88px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: none;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.prize-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--sage-tint);
+  border: 1px dashed #B2D0BC;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.prize-bg-ico { font-size: 1.4rem; }
+.prize-bg-txt {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--green-sb);
+}
+#scratchCanvas {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  z-index: 2;
+  transition: opacity 0.4s ease;
+}
+
+/* ─── Info strip ─────────────────────────────── */
+.info-strip {
+  background: var(--beige);
+  border-radius: var(--r-lg);
+  border: 1px solid #EDE8DC;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.info-strip-ico { font-size: 1.5rem; flex-shrink: 0; }
+.info-strip-text { font-size: 0.83rem; font-weight: 300; color: var(--text-soft); line-height: 1.6; }
+.info-strip-text strong { font-weight: 500; color: var(--text-main); }
+
+/* ─── Footer ─────────────────────────────────── */
+.footer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-xs);
+  letter-spacing: 0.05em;
+  padding: 8px 0 0;
+}
+
+/* ─── Modal ──────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(249,248,246,0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: var(--surface);
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  box-shadow: var(--sh-lg);
+  padding: 44px 40px 34px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  transform: scale(0.92) translateY(12px);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal-ico { font-size: 2.4rem; display: block; margin-bottom: 16px; }
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+.modal-rule {
+  width: 32px; height: 1px;
+  background: var(--border);
+  margin: 0 auto 18px;
+}
+.modal-msg {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+.modal-msg strong { font-weight: 500; color: var(--text-main); }
+
+.sb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green-sb);
+  color: #fff;
+  padding: 11px 22px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.35;
+  margin-bottom: 22px;
+}
+.sb-pill svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+.modal-footer-text {
+  font-size: 0.78rem;
+  color: var(--text-xs);
+  margin-bottom: 8px;
+}
+.modal-signature {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.55rem;
+  color: var(--text-soft);
+  margin-bottom: 22px;
+  letter-spacing: 0.01em;
+}
+.btn-close {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  padding: 8px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: border-color var(--t), color var(--t), transform var(--t);
+}
+.btn-close:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+/* ─── Confetti ───────────────────────────────── */
+#cfCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 500;
+}
+</style>
+</head>
+<body>
+
+<canvas id="cfCanvas"></canvas>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <span class="modal-ico">🎉</span>
+    <h2 class="modal-title">¡Felicidades!</h2>
+    <div class="modal-rule"></div>
+    <p class="modal-msg">
+      Ganaste un <strong>Caramel Frappuccino grande</strong><br>
+      y una <strong>Galleta Chocochips</strong> ☕🍪<br>
+      <span style="display:block;margin-top:8px;font-size:0.8rem;">Espero que los disfrutes muchísimo.</span>
+    </p>
+    <div class="sb-pill">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 13H11V9h2v6zm0-8H11V5h2v2z"/></svg>
+      Frappuccino Grande · Galleta Chocochips
+    </div>
+    <p class="modal-footer-text">Feliz Día del Amor y la Amistad 💛</p>
+    <p class="modal-signature">Yoma Arenas</p>
+    <button class="btn-close" id="btnClose">Cerrar</button>
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero reveal d1">
+    <p class="eyebrow">14 de Febrero · Amor &amp; Amistad</p>
+    <span class="hero-icon">💌</span>
+    <h1 class="hero-headline">Soy tu amiga secreta</h1>
+    <div class="hero-rule"></div>
+    <div class="message">
+      <p>No te conozco muchísimo, pero hay cosas que <strong>se notan</strong>.</p>
+      <p style="margin-top:12px;font-size:0.83rem;color:var(--text-xs);">Tres cosas que seguro te hacen genial:</p>
+      <ul class="traits">
+        <li>Eres enfocada y trabajadora.</li>
+        <li>Inteligente y muy responsable.</li>
+        <li>Aunque parezcas callada, transmites mucha amabilidad y disposición para ayudar.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GRID 2 COL -->
+  <div class="grid2">
+
+    <!-- Playlist -->
+    <div class="card card-playlist reveal d2">
+      <div class="card-tag">🎧 Playlist</div>
+      <div class="card-ico">♫</div>
+      <p class="card-title">Un pedacito de mí en canciones ✨</p>
+      <p class="card-text">No sé cuál es tu estilo musical, pero quise compartirte música que me alegra el día.</p>
+      <a class="btn" href="https://open.spotify.com/playlist/1t29R2QVf7nRwtMnIADGG7?si=90g3_JsYQsO6JbEJ4swtlA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Abrir playlist
+      </a>
+    </div>
+
+    <!-- Scratch -->
+    <div class="card card-scratch reveal d3">
+      <div class="card-tag">🎁 Sorpresa</div>
+      <div class="card-ico">🎟</div>
+      <p class="card-title">Tu sorpresa 👀</p>
+      <p class="card-text">Raspa la tarjeta y descubre tu premio.</p>
+      <div class="scratch-wrap" id="scratchWrap">
+        <div class="prize-bg">
+          <div class="prize-bg-ico">☕</div>
+          <div class="prize-bg-txt">¡Tu sorpresa te espera!</div>
+        </div>
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- INFO STRIP -->
+  <div class="info-strip reveal d4">
+    <div class="info-strip-ico">☕</div>
+    <p class="info-strip-text">
+      <strong>Tu regalo te espera en Starbucks:</strong> Un Caramel Frappuccino grande y una Galleta Chocochips 🍪<br>
+      Raspa la tarjeta de arriba para reclamar tu premio.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer reveal d4">
+    Hecho con cariño · Amor &amp; Amistad 2025 ·
+    <em style="font-family:'Playfair Display',serif; font-style:italic;">Yoma Arenas</em>
+  </footer>
+
+</div>
+
+<script>
+/* ─── Scroll reveal via IntersectionObserver ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.10 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ─── Scratch card ─────────────────────────── */
+const wrap   = document.getElementById('scratchWrap');
+const canvas = document.getElementById('scratchCanvas');
+const ctx    = canvas.getContext('2d');
+let drawing  = false, done = false;
+
+function resizeCanvas() {
+  const r = wrap.getBoundingClientRect();
+  canvas.width = r.width; canvas.height = r.height;
+  drawSurface();
+}
+
+function drawSurface() {
+  const g = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  g.addColorStop(0, '#CEC6C6'); g.addColorStop(1, '#C6C0CA');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = 0.5;
+  for (let x = 0; x < canvas.width; x += 10) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
+  for (let y = 0; y < canvas.height; y += 10) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
+  ctx.fillStyle = 'rgba(255,255,255,0.72)';
+  ctx.font = '500 12px DM Sans, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('Arrastra para revelar ✦', canvas.width / 2, canvas.height / 2);
+}
+
+function pos(e) {
+  const r = canvas.getBoundingClientRect();
+  if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+
+function scratchAt(x, y) {
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath(); ctx.arc(x, y, 24, 0, Math.PI * 2); ctx.fill();
+  checkDone();
+}
+
+function checkDone() {
+  if (done) return;
+  const d = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  let empty = 0;
+  for (let i = 3; i < d.length; i += 4) if (d[i] === 0) empty++;
+  if (empty / (d.length / 4) > 0.50) {
+    done = true;
+    canvas.style.opacity = '0';
+    setTimeout(() => { canvas.style.display = 'none'; openModal(); }, 420);
+  }
+}
+
+canvas.addEventListener('mousedown',  e => { drawing = true; const p = pos(e); scratchAt(p.x, p.y); });
+canvas.addEventListener('mousemove',  e => { if (drawing) { const p = pos(e); scratchAt(p.x, p.y); } });
+canvas.addEventListener('mouseup',    () => drawing = false);
+canvas.addEventListener('mouseleave', () => drawing = false);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true;  const p = pos(e); scratchAt(p.x, p.y); }, { passive:false });
+canvas.addEventListener('touchmove',  e => { e.preventDefault(); const p = pos(e); scratchAt(p.x, p.y); }, { passive:false });
+canvas.addEventListener('touchend',   () => drawing = false);
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+/* ─── Modal ──────────────────────────────────── */
+const overlay  = document.getElementById('overlay');
+const btnClose = document.getElementById('btnClose');
+function openModal() { overlay.classList.add('open'); launchConfetti(); }
+btnClose.addEventListener('click', () => overlay.classList.remove('open'));
+overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+/* ─── Confetti minimal pastel ────────────────── */
+const cf = document.getElementById('cfCanvas');
+const cfCtx = cf.getContext('2d');
+let particles = [];
+
+function launchConfetti() {
+  cf.width = innerWidth; cf.height = innerHeight;
+  const colors = ['#C9C0D8','#D8C0C0','#B8CEBC','#E2D6BE','#C8C8C8','#E0C8C8'];
+  for (let i = 0; i < 80; i++) {
+    particles.push({
+      x: Math.random() * cf.width, y: -15 - Math.random() * 80,
+      vx: (Math.random() - 0.5) * 3.2, vy: 2 + Math.random() * 3.5,
+      rot: Math.random() * 360, rotV: (Math.random() - 0.5) * 6,
+      w: 5 + Math.random() * 7, h: 3 + Math.random() * 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      alpha: 1, delay: Math.floor(Math.random() * 50)
+    });
+  }
+  animateCF();
+}
+
+function animateCF() {
+  cfCtx.clearRect(0, 0, cf.width, cf.height);
+  particles = particles.filter(p => p.alpha > 0.01);
+  for (const p of particles) {
+    if (p.delay-- > 0) continue;
+    p.x += p.vx; p.y += p.vy; p.vy += 0.07; p.rot += p.rotV;
+    if (p.y > cf.height * 0.72) p.alpha -= 0.022;
+    cfCtx.save();
+    cfCtx.globalAlpha = Math.max(0, p.alpha);
+    cfCtx.fillStyle = p.color;
+    cfCtx.translate(p.x, p.y);
+    cfCtx.rotate(p.rot * Math.PI / 180);
+    cfCtx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+    cfCtx.restore();
+  }
+  if (particles.length > 0) requestAnimationFrame(animateCF);
+  else cfCtx.clearRect(0, 0, cf.width, cf.height);
+}
+</script>
+</body>
+</html>
